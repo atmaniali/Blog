@@ -19,11 +19,11 @@ def createpost(request):
             form.save()
             return HttpResponseRedirect('/')
     context['form'] = form
-    return render(request,template_name,context)
+    return render(request, template_name, context)
 
-# def updatepost(request, pk):
+def updatepost(request, post_id):
     # id = 2
-    obj = Post.objects.get(id = pk)
+    obj = get_object_or_404(Post, pk = post_id)
     context = {}
     form = PostForm(request.POST or None, instance= obj)
     if form.is_valid():
@@ -33,16 +33,7 @@ def createpost(request):
     template_name = 'modifierpost.html'
     context['form'] = form
     return render(request, template_name, context)
-####
-# 
-def updatechek(request, pk):
-    template_name = 'chhkl.html'
-    context = {}
-    post = Post.objects.get(id = pk)
-    form = PostForm(request.POST or None, instance= post)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect('main:home')
-    context['form'] = forms
-    return render(request, template_name, context)    
+def detail(request, question_id):
+    post = get_object_or_404(Post, pk = question_id) 
+    return render(request, 'chhkl.html', {"post": post})
 

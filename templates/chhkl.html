@@ -10,13 +10,7 @@
     tytyty
     
     {% load crispy_forms_tags %}
-    <div class="forms">
-        <form action="" method="post">
-            {% csrf_token %}
-            <!-- TODO: text modifier -->
-            {{ form|crispy }}
-            
-            <button type="submit " class ="btn btn-primary mt-3">Create</button>
-        </form>
+    <br>
+    {{post}}
 </body>
 </html>
