@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %} Modifier Post {% endblock title %}
+
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+
+
+{% block content %}
+    <div class="container">
+        {% load crispy_forms_tags %}
+        <h2>Modifeier Post</h2>
+        <div class="forms">
+            <form action="" method="post">
+                {% csrf_token %}
+                <!-- TODO: text modifier -->
+                {{ form|crispy }}
+                
+                <button type="submit " class ="btn btn-primary mt-3">Create</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
+
+
+{% block javascripts %}
+{% endblock javascripts %}

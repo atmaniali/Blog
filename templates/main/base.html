@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!-- Specific CSS goes HERE -->
+    {% block stylesheets %}{% endblock stylesheets %}
+    <title>{% block title %} Blog- {% endblock %} </title>
+</head>
+<body>
+    <header class="p-3 bg-dark text-white">
+        <div class="container">
+          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+              <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+            </a>
+    
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+              <li><a href="{% url 'main:home' %}" class="nav-link px-2 text-secondary">Home</a></li>
+              <li><a href="{% url 'main:create' %}" class="nav-link px-2 text-white">Create Form</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+            </ul>
+    
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+              <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+            </form>
+    
+            <div class="text-end">
+              <button type="button" class="btn btn-outline-light me-2">Login</button>
+              <button type="button" class="btn btn-warning">Sign-up</button>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- Bloc content HERE  -->
+      {% block content %}{% endblock content %}
+
+     
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+   <!-- Specific JS goes HERE --> 
+  {% block javascripts %}{% endblock javascripts %}
+</body>
+</html>

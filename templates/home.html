@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+{% block title %} Home {% endblock title %}
+{% block stylesheets %}{% endblock stylesheets %}
+{% block content %}
+  <section id="hero" class=" text-center text-sm-start py-5">
+    {% for object in object_list %}  
+    <div class="container py-3">
+        <div class="card text-center bg-dark text-light">
+            <card-header>
+                <div class="d-flex align-item-start">
+                    <h2><span class="text-info">{{ object.title }}</span></h2>
+                    <a href="{% url 'main:updatechek' post.id%}">Modifier</a>
+                    </div>
+            </card-header>
+            <card-body class="px-3 text-start">
+                <p>{{ object.text }}</p>
+                <div class="d-flex justify-content-center">
+                    <button class = "px-5">J'aime</button>
+                    <button class = "px-5">Coment</button>
+                    <button class = "px-5">Share</button>
+                </div>
+            </card-body>
+        </div>         
+    </div>
+    {% empty %}
+    <div class="empty">
+        <p>No object yet</p>
+    </div>    
+    {% endfor %}   
+  </section>
+{% endblock content %}
+
+  <!-- Specific JS goes HERE -->
+  
+{% block javascripts %}
+{% endblock javascripts %}
