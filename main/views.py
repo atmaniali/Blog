@@ -7,11 +7,11 @@ from .models import *
 
 # Create your views here.
 class home(generic.list.ListView):
-    template_name = "home.html"
+    template_name = "main/home.html"
     model = Post
 
 def createpost(request):
-    template_name = "createpost.html"
+    template_name = "main/createpost.html"
     context = {}
     form = PostForm(request.POST or None)
     if request.method == 'POST':
@@ -30,10 +30,14 @@ def updatepost(request, post_id):
         form.save()
         return reverse("main:home")
 
-    template_name = 'modifierpost.html'
+    template_name = 'main/modifierpost.html'
     context['form'] = form
     return render(request, template_name, context)
 def detail(request, question_id):
     post = get_object_or_404(Post, pk = question_id) 
-    return render(request, 'chhkl.html', {"post": post})
+    return render(request, 'main/chhkl.html', {"post": post})
+def profile(request):
+    template_name="account/profile.html"
+    context={}
+    return render(request,template_name, context)    
 

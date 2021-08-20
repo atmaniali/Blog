@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
     'main',
     'crispy_forms',
@@ -138,6 +138,8 @@ STATICFILES_DIRS = [ os.path.join(BASE_DIR,'static') ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 MEDIA_URL = '/media/'
+LOGIN_REDIRECT_URL = "main:home"   # Route defined in app/urls.py
+LOGOUT_REDIRECT_URL = "/"  # Route defined in app/urls.py
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -147,15 +149,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Provider specific settings
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
-        'APP': {
-            'client_id': '192712797856-vs4u3ci3pg6rjhj5c0u5aadrpm1ag5ia.apps.googleusercontent.com',
-            'secret': 'fa0CYVH3IVcyQ9N05OAwJkO3',
-            'key': ''
-        }
-    }
-}
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'APP': {
+#             'client_id': '#',
+#             'secret': '#',
+#             'key': ''
+#         }
+#     }
+# }

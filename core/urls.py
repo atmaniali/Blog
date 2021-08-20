@@ -2,10 +2,12 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
+from main.views import profile
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include("main.urls")),
-    path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls'), name = "accounts"),
+    path('accounts/profile/', profile , name ='profile'),
 ]
