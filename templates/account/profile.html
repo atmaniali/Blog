@@ -1,15 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    {% if user.is_authenticated %}
-        <h1>jjj</h1>
-    {% endif %}    
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'main/base.html' %}
+
+{% block title %} Profile {% endblock title %}
+
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+
+{% block content %}
+
+  <div class="container">
+      {% if user.is_authenticated%}
+      <h1>Hello {{user.username}}</h1>
+      {% endif %}
+      <h2>{{ user.get_full_name }}</h2>
+      <ul>
+        <li>Username: {{ user.username }}</li>
+        <li>Location: {{ user.profile.location }}</li>
+        <li>Birth Date: {{ user.profile.birth_date }}</li>
+      </ul>
+      <hr>
+      {{users}}
+  </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+{% endblock javascripts %}

@@ -34,9 +34,9 @@
                 <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
               </a>
               <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <li><a class="dropdown-item" href="{% url 'main:create' %}">New Post...</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="accounts/profile/">Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'profile' user.id %}" >Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="accounts/logout/">Sign out</a></li>
               </ul>
@@ -58,7 +58,7 @@
       {% block content %}{% endblock content %}
 
      
-      <footer class="bg-black text-white text-center position-relative py-5">
+      <footer class="fixed-bottom bg-black text-white text-center position-relative py-5">
         <div class="container">
             <div class="lead">
                 <p>copyright &copy; 2021</p>
