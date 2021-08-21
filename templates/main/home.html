@@ -5,9 +5,9 @@
 {% endblock stylesheets %}
 {% block content %}
   <section id="hero" class=" text-center text-sm-start py-5">
-    {% for object in object_list %}  
     <div class="container py-3">
-        <div class="card text-center bg-dark text-light">
+      {% for object in object_list %}  
+        <div class="card text-center shadow-lg p-3 mb-5 rounded">
             <card-header>
                 <div class="d-flex align-item-start">
                     <h2><span class="text-primary">{{ object.title }}</span></h2>
@@ -16,22 +16,23 @@
             </card-header>
             <card-body class="px-3 text-start">
                 <p>{{ object.text }}</p>
+                <br> <p>Create by : {{object.user.username}}</span>br date: {{object.date_post}}</p><span>
                 <div class="d-flex justify-content-center my-3 ">
                     <button type="button" id="btn"
                     value="0"
-                    class="btn btn-outline-primary text-white mx-2" 
+                    class="btn btn-outline-primary  mx-2" 
                     onclick="oncli()">
                     J'aime
-                    <i class="bi bi-hand-thumbs-up" style="font-size: 1rem; color: white;"></i>
+                    <i class="bi bi-hand-thumbs-up" style="font-size: 1rem; color: black;"></i>
                      <span id = 'count'>0</span>
                     </button>
-                    <button type="button" class="btn btn-outline-primary text-white mx-2"
+                    <button type="button" class="btn btn-outline-primary  mx-2"
                     onclick="oncli()">Coment 
-                      <i class="bi bi-reply" style="color: white;"></i>
+                      <i class="bi bi-reply" style="color: black;"></i>
                       <span id = 'count'>0</span>
                     </button>
-                    <button type="button" class="btn btn-outline-primary text-white mx-2">Share 
-                      <i class="bi bi-share" style="color: white;"></i>
+                    <button type="button" class="btn btn-outline-primary  mx-2">Share 
+                      <i class="bi bi-share" style="color: black;"></i>
                     </button>
                 </div>
             </card-body>
@@ -43,6 +44,7 @@
     </div>    
     {% endfor %}   
   </section>
+  {% include "main/footer.html" %} 
 {% endblock content %}
 
   <!-- Specific JS goes HERE -->

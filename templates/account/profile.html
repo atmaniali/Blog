@@ -3,12 +3,67 @@
 {% block title %} Profile {% endblock title %}
 
 
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+{% endblock stylesheets %}
 
 
 {% block content %}
 
   <div class="container">
+    <div class="container my-5">
+      <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+        <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+          <h1 class="display-4 fw-bold lh-1">Border hero with cropped image and shadows</h1>
+          <p class="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+            <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">Primary</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg px-4">Default</button>
+          </div>
+        </div>
+        <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
+            <img class="rounded-lg-3" src="bootstrap-docs.png" alt="" width="720">
+        </div>
+      </div>
+    </div>
+
+
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum velit enim praesentium quam libero ipsam voluptatem porro vitae doloribus sapiente sed veniam animi, laborum odio impedit unde dignissimos aperiam voluptas voluptate tempora reprehenderit fugiat? Ut error quia quaerat sit voluptatem, magni eius? Saepe eligendi quidem id. Alias unde possimus beatae rem facilis. Quisquam totam et a ipsa. Sed corrupti dicta sequi porro! Voluptates, reiciendis. Exercitationem laboriosam provident officiis, ratione ex suscipit! Praesentium et totam aspernatur numquam voluptas accusamus harum fugiat pariatur ea, ratione saepe laudantium dolor a delectus similique architecto hic ullam molestiae. Deserunt voluptate similique hic neque itaque harum sit dolorum laborum. Inventore, soluta tempora eveniet fugiat iste ad optio suscipit dicta hic alias cumque, tempore nam voluptatum qui!
+    </p>
+    {% for post in posts%}
+    <div class="card  my-3">
+      <div class="card-header">
+        {{ post.title }}
+      </div>
+      <div class="card-body">
+        {{ post.text }} <br>
+        date: {{post.date_post}}
+        <div class="d-flex justify-content-center my-3 ">
+          <button type="button" id="btn_{{post.id}}"
+          value="0"
+          class="btn btn-outline-primary  mx-2" onclick="oncli('btn_{{post.id}}','jaime_{{post.id}}')">
+          J'aime
+          <i class="bi bi-hand-thumbs-up" style="font-size: 1rem; color: black;"></i>
+           <span id = 'jaime_{{post.id}}'>0</span>
+          </button>
+          
+          <button type="button" class="btn btn-outline-primary  mx-2"
+          onclick="oncli()">Coment 
+            <i class="bi bi-reply" style="color: black;"></i>
+            <span id = 'co'>0</span>
+          </button>
+          <button type="button" class="btn btn-outline-primary  mx-2">Share 
+            <i class="bi bi-share" style="color: black;"></i>
+          </button>
+      </div>
+      </div>
+    </div>
+    {% empty %}
+    <p>No post create <a href="{% url 'main:create'%}" type="button" class = "btn btn-primary  mx-2">Post</a></p>
+
+    {% endfor %}
+    <hr>
       {% if user.is_authenticated%}
       <h1>Hello {{user.username}}</h1>
       {% endif %}
@@ -19,10 +74,24 @@
         <li>Birth Date: {{ user.profile.birth_date }}</li>
       </ul>
       <hr>
-      {{users}}
+      <div>
+        <h2>All users query :</h2>
+        {{users}}
+      </div>
   </div>
 
 {% endblock content %}
 
 {% block javascripts %}
+
+<script>
+  var i = 0;
+  function oncli(idbut,idspn){
+    i++;
+   
+    s= document.getElementById(idbut).value = i
+    document.getElementById(idspn).textContent= s
+  }
+  
+</script> 
 {% endblock javascripts %}

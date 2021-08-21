@@ -33,12 +33,13 @@
               <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
               </a>
-              <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="{% url 'main:create' %}">New Post...</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="{% url 'profile' user.id %}" >Profile</a></li>
+                <p>{{user.username}}</p>
+              <ul class="dropdown-menu text-small bg-dark " aria-labelledby="dropdownUser1">
+                <li><a class="dropdown-item text-white" href="{% url 'main:create' %}">New Post...</a></li>
+                <li><a class="dropdown-item text-white" href="{% url 'setting' %}">Settings</a></li>
+                <li><a class="dropdown-item text-white" href="{% url 'profile' user.id %}" >Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="accounts/logout/">Sign out</a></li>
+                <li><a class="dropdown-item text-white" href="accounts/logout/">Sign out</a></li>
               </ul>
             </div>
             {% else %}
@@ -58,16 +59,7 @@
       {% block content %}{% endblock content %}
 
      
-      <footer class="fixed-bottom bg-black text-white text-center position-relative py-5">
-        <div class="container">
-            <div class="lead">
-                <p>copyright &copy; 2021</p>
-            </div>
-            <a href="#" class="position-absolute buttom-0 end-0 px-3">
-                <i class="ri-arrow-up-circle-line h2"></i>
-            </a>
-        </div>
-    </footer>
+      
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
    <!-- Specific JS goes HERE --> 
   {% block javascripts %}{% endblock javascripts %}

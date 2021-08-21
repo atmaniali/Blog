@@ -1,17 +1,45 @@
 {% extends 'main/base.html' %}
 
-{% block title %} Profile {% endblock title %}
+{% block title %} Settings {% endblock title %}
 
 
 {% block stylesheets %}{% endblock stylesheets %}
 
 
 {% block content %}
-
-  <div class="container">
-      
-  </div>
-
+    {%if user.is_authenticated %}
+    <div class="container py-4">
+        {% load crispy_forms_tags %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    {{user_form.first_name | as_crispy_field}}
+                </div>
+                <div class="form-group col-md-6 mb-0">
+                    {{user_form.last_name | as_crispy_field}}
+                </div>
+            </div>
+            <!-- {{ user_form|crispy }} -->
+            <hr>
+            {{ profile_form.bio| as_crispy_field }}
+            <div class="form-row">
+                <div class="form-group col-md-6 mb-0">
+                    {{profile_form.location | as_crispy_field}}
+                </div>
+                <div class="form-group col-md-6 mb-0" >
+                    
+                    {{profile_form.birth_date | as_crispy_field}}
+                </div>
+            </div>
+            {{profile_form.avatar | as_crispy_field}}
+            <button type="submit" class ="btn btn-primary my-3">Save changes</button>
+        </form>
+    </div>
+    {% else %}
+        <h3>Warning</h3>
+        <p>you should create account or login <a href="{%url 'main:home' %}"></a> </p>
+    {% endif %}
 {% endblock content %}
 
 {% block javascripts %}

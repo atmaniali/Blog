@@ -7,7 +7,7 @@ from django.utils import timezone
 
 # Create your models here.
 class Post(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title=models.CharField(max_length=100)
     text = models.TextField()
     date_post = models.DateTimeField(auto_now=True)
@@ -18,7 +18,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
-    birth_date = models.DateField(null=True, blank=True) 
+    birth_date = models.DateField(null=True, blank=True, default=None ) 
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True) 
     # add signals
     @receiver(post_save, sender=User)
@@ -42,8 +42,7 @@ class Comment(models.Model):
         return self.text
 
 class Friend(models.Model):
-    user =   models.OneToOneField(User, on_delete=models.CASCADE, related_name='friends')    
-    followed = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friends_followed')
-    followers = models.ForeignKey(User, on_delete=models.CASCADE, related_name= 'friends_followers')
-    def __str__(self):
-        return self.user.username
+    # user he is send request 
+    from_ser = models.ForeignKey(Profile, related_name = 'from_user', on_delete=models.CASCADE)
+    # request send to user from another profile
+    to_user = models.ForeignKey(Profile, related_name = 'to_user', on_delete=models.CASCADE)

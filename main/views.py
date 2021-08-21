@@ -3,6 +3,8 @@ from django.http import HttpResponseRedirect
 from django.views import generic
 from django.contrib import messages
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.debug import sensitive_variables
 from .form import *
 from .models import *
 
@@ -11,9 +13,11 @@ class home(generic.list.ListView):
     template_name = "main/home.html"
     model = Post
 
+@login_required
 def createpost(request):
     template_name = "main/createpost.html"
     context = {}
+    # TODO: fix user by the one how's connect
     form = PostForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
@@ -22,6 +26,7 @@ def createpost(request):
     context['form'] = form
     return render(request, template_name, context)
 
+@login_required
 def updatepost(request, post_id):
     # id = 2
     obj = get_object_or_404(Post, pk = post_id)
@@ -37,16 +42,19 @@ def updatepost(request, post_id):
 def detail(request, question_id):
     post = get_object_or_404(Post, pk = question_id) 
     return render(request, 'main/chhkl.html', {"post": post})
+    # tags for security
+@sensitive_variables('user')    
 def profile(request, user_id):
     template_name="account/profile.html"
     user = User.objects.get(pk=user_id)
-    if user.is_authenticated:
-        print( "gh")
     users = User.objects.all().select_related('profile')    
     context={"users":users}
+    if user.is_authenticated:
+       post = Post.objects.all().filter(user = user_id)
+       context['posts'] = post
     return render(request,template_name, context)   
 
-def settings(request):
+def settings_profile(request):
     template_name = "account/settings.html"
     context = {}
     if request.method == 'POST':
@@ -55,12 +63,15 @@ def settings(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, _('Your profile was successfully updated!'))
-            return redirect('settings:profile')
+            messages.success(request, ('Your profile was successfully updated!'))
+            return reverse('profile')
         else:
-            messages.error(request, _('Please correct the error below.'))
+            messages.error(request, ('Please correct the error below.'))
     else:
         user_form = UserForm(instance=request.user)
         profile_form = ProfileForm(instance=request.user.profile)
+        context['user_form'] = user_form
+        context['profile_form'] = profile_form
+    # TODO: add the avatar and test if they work    
     return render(request, template_name, context)
 
