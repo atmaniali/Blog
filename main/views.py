@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.views import generic
 from django.contrib import messages
 from django.urls import reverse
@@ -74,4 +74,27 @@ def settings_profile(request):
         context['profile_form'] = profile_form
     # TODO: add the avatar and test if they work    
     return render(request, template_name, context)
+
+@login_required    
+def send_freind_request(request, user_id):
+    from_user = request.user
+    to_user = User.objects.get(id = user_id) 
+    friend, created = Friend.get_or_create(from_user = from_user , to_user = to_user)   
+    if created :
+        return HttpResponse('freind request sent !')
+    else :
+       return HttpResponse('freind request was already sent !')    
+
+@login_required
+def accept_freind_request(request, request_id):
+    friend_request = Friend.objects.get(id = request_id)
+    if friend_request.to_user  == request.user:
+        friend_request.to_user.friends.add(friend_request.from_user)
+        friend_request.from_user.friends.add(friend_request.to_user)
+        friend_request.delete()
+        return HttpResponse("friend request accepted")
+    else :
+        return HttpResponse(" freind request not accepted ")    
+
+
 

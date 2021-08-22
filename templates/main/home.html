@@ -44,7 +44,34 @@
     </div>    
     {% endfor %}   
   </section>
-  {% include "main/footer.html" %} 
+
+  <div class = "my-3">
+    <h1>send a friend request to that user</h1>
+    <ul class="all_users">
+      {% for user in allusers%}
+        {% if not user.is_superuser %}
+          {% if user not in request.userfriends.all and user != request.user %}
+              <h3 >{{user}}<a href="{% url 'send_freind_request' user.id %}">
+                send freind request 
+              </a></h3>
+          {% endif %}  
+        {% endif %}  
+      {% endfor %}  
+    </ul>
+  </div>
+  <hr>
+  <div class="my-3">
+    {% for friend_request in all_friend_requests%}
+      <h1>
+        {{friend_request.from_user}}
+        <a href="{% url 'accept_freind_request' friend_request.id %}">
+          accept friend request
+        </a>
+      </h1>
+    {% endfor %}  
+  </div>
+
+{% include "main/footer.html" %} 
 {% endblock content %}
 
   <!-- Specific JS goes HERE -->
