@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'main',
     'crispy_forms',
+    "friendship",
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
