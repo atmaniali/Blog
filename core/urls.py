@@ -11,5 +11,7 @@ urlpatterns = [
     path('',include("main.urls")),
     path('accounts/', include('allauth.urls'), name = "accounts"),
     path('accounts/profile/<int:user_id>', profile , name ='profile'),
-    path('accounts/profle/settings/', settings_profile, name = "setting")
+    path('accounts/profle/settings/', settings_profile, name = "setting"),
+    path('friendship/', include('friendship.urls')),
+    
 ]

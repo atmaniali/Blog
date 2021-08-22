@@ -19,7 +19,7 @@ class Post(models.Model):
         return self.title+" creater \t" + self.user.username
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profiless")
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     # friends = models.ManyToManyField(User, blank=True)
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
@@ -33,7 +33,7 @@ class Profile(models.Model):
 
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
-        instance.Profile.save()
+        instance.profile.save()
 
     def __str__(self):
         return self.user.username    
@@ -47,8 +47,3 @@ class Comment(models.Model):
     def __str__(self):
         return self.text
 
-class Friend(models.Model):
-    # user he is send request 
-    from_user = models.ForeignKey(Profile, related_name = 'from_user', on_delete=models.CASCADE)
-    # request send to user from another profile
-    to_user = models.ForeignKey(Profile, related_name = 'to_user', on_delete=models.CASCADE)

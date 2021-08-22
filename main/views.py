@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.debug import sensitive_variables
+from django.contrib.auth.models import User
+from friendship.models import Friend, Follow, Block
 from .form import *
 from .models import *
 
@@ -75,26 +77,14 @@ def settings_profile(request):
     # TODO: add the avatar and test if they work    
     return render(request, template_name, context)
 
-# @login_required    
-# def send_freind_request(request, user_id):
-#     from_user = request.user
-#     to_user = User.objects.get(id = user_id) 
-#     friend, created = Friend.get_or_create(from_user = from_user , to_user = to_user)   
-#     if created :
-#         return HttpResponse('freind request sent !')
-#     else :
-#        return HttpResponse('freind request was already sent !')    
+# 
 
-# @login_required
-# def accept_freind_request(request, request_id):
-#     friend_request = Friend.objects.get(id = request_id)
-#     if friend_request.to_user  == request.user:
-#         friend_request.to_user.friends.add(friend_request.from_user)
-#         friend_request.from_user.friends.add(friend_request.to_user)
-#         friend_request.delete()
-#         return HttpResponse("friend request accepted")
-#     else :
-#         return HttpResponse(" freind request not accepted ")    
-
+def friendship_request(request):
+    other_user = User.objects.get(pk=3)
+    Friend.objects.add_friend(
+        request.user,                               # The sender
+        other_user,                                 # The recipient
+        message='Hi! I would like to add you')      # This message is optional
+    return HttpResponse('request was sent to {}'.format(other_user.username))
 
 
